@@ -1,0 +1,73 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\TravelItem;
+use App\Models\Booking;
+use App\Models\Participant;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
+class CheckoutController extends Controller
+{
+    public function index($id)
+    {
+        $destination = TravelItem::findOrFail($id);
+        return view('checkout', compact('destination'));
+    }
+
+    public function store(Request $request)
+    {
+        // 1. Validasi Data
+        $request->validate([
+            'destination_id' => 'required|exists:travel_items,id',
+            'full_name'      => 'required|string|max:255',
+            'email'          => 'required|email',
+            'phone'          => 'required|string|max:20',
+            'nik'            => 'required|array|min:1|max:5',
+            'nik.*'          => 'required|digits:16',
+            'departure_date' => 'required|date',
+            'quantity'       => 'required|integer|min:1|max:5',
+            'address'        => 'required',
+            'country'        => 'required',
+            'card_name'      => 'required',
+            'card_number'    => 'required|digits:16',
+            'card_expiry'    => 'required',
+            'card_cvv'       => 'required|digits:3',
+        ]);
+
+        $travel = TravelItem::findOrFail($request->destination_id);
+        $kodeBooking = 'TRV-' . strtoupper(Str::random(8));
+
+        // 2. Simpan Booking
+        $booking = Booking::create([
+            'destination_id' => $travel->id,
+            'kode_booking'   => $kodeBooking,
+            'full_name'      => $request->full_name,
+            'email'          => $request->email,
+            'phone'          => $request->phone,
+            'departure_date' => $request->departure_date,
+            'quantity'       => $request->quantity,
+            'address'        => $request->address,
+            'country'        => $request->country,
+            'card_name'      => $request->card_name,
+            'card_number'    => encrypt($request->card_number),
+            'card_expiry'    => $request->card_expiry,
+            'card_cvv'       => encrypt($request->card_cvv),
+            'total_price'    => $travel->price * $request->quantity,
+            'status'         => 'pending',
+        ]);
+
+        // 3. Simpan Partisipan (Relasi)
+        foreach ($request->nik as $nik) {
+            Participant::create([
+                'booking_id'    => $booking->id,
+                'nik'           => $nik,
+                'kode_booking'  => $kodeBooking,
+                'tujuan_wisata' => $travel->name, // Mengambil nama destinasi
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Pesanan berhasil dibuat! Kode: ' . $kodeBooking);
+    }
+}
