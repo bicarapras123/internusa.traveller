@@ -181,16 +181,6 @@
     </div>
 </section>
 
-    <section class="py-10 max-w-7xl mx-auto px-6">
-        <div class="bg-sky-900 rounded-3xl p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8">
-            <div>
-                <h2 class="text-3xl font-bold mb-4">Diskon Spesial 20%</h2>
-                <p class="text-sky-200">Gunakan kode voucher: <span class="font-mono bg-sky-800 px-2 py-1 rounded">GOTRAVEL20</span></p>
-            </div>
-            <a href="#" class="bg-white text-sky-900 font-bold px-8 py-4 rounded-full hover:bg-gray-100 transition">Klaim Promo</a>
-        </div>
-    </section>
-
     @include('components.footer')
 
 </body>

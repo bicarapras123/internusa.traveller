@@ -5,20 +5,28 @@ use App\Http\Controllers\TravelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OrderController;
 
 // Halaman Utama (Publik)
 Route::get('/', [TravelController::class, 'index'])->name('home');
 Route::get('/travel/{travelItem:slug}', [TravelController::class, 'showItem'])->name('travel.show');
 Route::get('/search', [TravelController::class, 'search'])->name('travel.search');
 
-// Menggunakan route parameter {id} untuk menangkap ID destinasi
-Route::get('/checkout/{id}', [CheckoutController::class, 'index'])->name('checkout.index');
-
-// Tambahkan baris ini untuk menangani form POST
-Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
-
 // Tambahkan kategori
 Route::get('/travel/category/{category}', [TravelController::class, 'filterByCategory'])->name('travel.category');
+
+// Tambahkan destiantions
+Route::get('/destinations', [DestinationController::class, 'index'])->name('destinations.index');
+
+// Tambahkan contact
+Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index');
+});
 
 // GANTI MENJADI INI:
 Route::get('/dashboard', [TravelController::class, 'index'])
@@ -28,6 +36,12 @@ Route::get('/dashboard', [TravelController::class, 'index'])
 // --- Route Manajemen (Hanya untuk Admin/User Terautentikasi) ---
 // --- Route Manajemen (Hanya untuk Admin/User Terautentikasi) ---
 Route::middleware('auth')->group(function () {
+
+    // Menggunakan route parameter {id} untuk menangkap ID destinasi
+        Route::get('/checkout/{id}', [CheckoutController::class, 'index'])->name('checkout.index');
+
+        // Tambahkan baris ini untuk menangani form POST
+        Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
     
     // Travel Items
     Route::post('/travel-items', [TravelController::class, 'storeItem'])->name('travel-items.store');

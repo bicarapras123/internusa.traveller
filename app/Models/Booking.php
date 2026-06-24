@@ -7,28 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 class Booking extends Model
 {
 
-protected $fillable = [
-
-'destination_id',
-
-'full_name',
-'email',
-'phone',
-
-'departure_date',
-'quantity',
-'address',
-'country',
-
-'card_name',
-'card_number',
-'card_expiry',
-'card_cvv',
-
-'total_price',
-'status'
-
-];
+    protected $fillable = [
+        'destination_id',
+        'kode_booking', // <--- TAMBAHKAN INI
+        'full_name',
+        'email',
+        'phone',
+        'departure_date',
+        'quantity',
+        'address',
+        'country',
+        'card_name',
+        'card_number',
+        'card_expiry',
+        'card_cvv',
+        'total_price',
+        'status'
+    ];
 
 
 public function destination()
