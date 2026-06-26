@@ -24,9 +24,21 @@ Route::get('/destinations', [DestinationController::class, 'index'])->name('dest
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/my-orders', [OrderController::class, 'index'])->name('orders.index');
-});
+// =======================
+// CEK BOOKING (PUBLIK)
+// =======================
+Route::get('/check-booking', [OrderController::class, 'searchForm'])
+    ->name('booking.search.form');
+
+Route::post('/check-booking', [OrderController::class, 'search'])
+    ->name('booking.search');
+
+        // Menggunakan route parameter {id} untuk menangkap ID destinasi
+Route::get('/checkout/{id}', [CheckoutController::class, 'index'])->name('checkout.index');
+
+        // Tambahkan baris ini untuk menangani form POST
+Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
+
 
 // GANTI MENJADI INI:
 Route::get('/dashboard', [TravelController::class, 'index'])
@@ -36,12 +48,6 @@ Route::get('/dashboard', [TravelController::class, 'index'])
 // --- Route Manajemen (Hanya untuk Admin/User Terautentikasi) ---
 // --- Route Manajemen (Hanya untuk Admin/User Terautentikasi) ---
 Route::middleware('auth')->group(function () {
-
-    // Menggunakan route parameter {id} untuk menangkap ID destinasi
-        Route::get('/checkout/{id}', [CheckoutController::class, 'index'])->name('checkout.index');
-
-        // Tambahkan baris ini untuk menangani form POST
-        Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.store');
     
     // Travel Items
     Route::post('/travel-items', [TravelController::class, 'storeItem'])->name('travel-items.store');

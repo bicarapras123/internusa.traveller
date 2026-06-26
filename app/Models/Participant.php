@@ -4,17 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Booking extends Model
+class Participant extends Model
 {
     protected $fillable = [
-        'destination_id', 'full_name', 'email', 'phone', 'departure_date', 
-        'quantity', 'address', 'country', 'card_name', 'card_number', 
-        'card_expiry', 'card_cvv', 'total_price', 'status'
+        'booking_id',
+        'nik',
+        'kode_booking',
+        'tujuan_wisata',
     ];
 
-    // Tambahkan ini agar bisa memanggil $order->participants
-    public function participants()
+    public function booking()
     {
-        return $this->hasMany(Participant::class);
+        return $this->belongsTo(Booking::class);
     }
 }

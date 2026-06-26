@@ -72,9 +72,11 @@ class CheckoutController extends Controller
                 return redirect()->back()->with('success', 'Pesanan berhasil dibuat! Kode: ' . $kodeBooking);
 
             } catch (\Exception $e) {
-                // Untuk Hosting, gunakan Log agar error tidak bocor ke user tapi tercatat di server
+                // Ganti sementara menjadi dd($e->getMessage());
+                dd($e->getMessage()); 
+                
                 \Log::error('Checkout Error: ' . $e->getMessage());
-                return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan sistem, silakan coba lagi.']);
+                return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan sistem: ' . $e->getMessage()]);
             }
         });
     }

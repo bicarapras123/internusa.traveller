@@ -17,16 +17,19 @@
             <div class="hidden lg:flex items-center gap-8 text-[11px] font-bold tracking-widest uppercase text-slate-800">
                 <a href="{{ route('home') }}" class="hover:text-sky-600 transition duration-300">Home</a>
                 <a href="{{ route('destinations.index') }}" class="hover:text-sky-600 transition duration-300">Destination</a>
-                
-                @auth
-                    @if(auth()->user()->role === 'admin')
-                        <a href="{{ route('admin.dashboard') }}" class="hover:text-sky-600 transition duration-300">Dashboard Admin</a>
-                    @else
-                        <a href="{{ route('orders.index') }}" class="hover:text-sky-600 transition duration-300">Order</a>
-                    @endif
-                @else
-                    <a href="{{ route('login') }}" class="hover:text-sky-600 transition duration-300">Order</a>
-                @endauth
+                <a href="{{ route('booking.search.form') }}"
+                    class="hover:text-sky-600 transition duration-300">
+                        Order
+                    </a>
+
+                    @auth
+                        @if(auth()->user()->role === 'admin')
+                            <a href="{{ route('admin.dashboard') }}"
+                            class="hover:text-sky-600 transition duration-300">
+                                Dashboard Admin
+                            </a>
+                        @endif
+                    @endauth
 
                 <a href="{{ route('contact.index') }}" class="hover:text-sky-600 transition duration-300">Contact Us</a>
                 
@@ -59,17 +62,20 @@
     <div x-show="open" class="lg:hidden bg-white border-b border-gray-100 px-4 py-4 space-y-2 text-center text-xs font-bold tracking-widest uppercase text-slate-800">
         <a href="{{ route('home') }}" class="block py-3 hover:bg-gray-50 rounded-lg">Home</a>
         <a href="{{ route('destinations.index') }}" class="block py-3 hover:bg-gray-50 rounded-lg">Destination</a>
-        
+        <a href="{{ route('booking.search.form') }}"
+        class="block py-3 hover:bg-gray-50 rounded-lg">
+            Order
+        </a>
+
         @auth
             @if(auth()->user()->role === 'admin')
-                <a href="{{ route('admin.dashboard') }}" class="block py-3 hover:bg-gray-50 rounded-lg">Dashboard Admin</a>
-            @else
-                <a href="{{ route('orders.index') }}" class="block py-3 hover:bg-gray-50 rounded-lg">Order</a>
+                <a href="{{ route('admin.dashboard') }}"
+                class="block py-3 hover:bg-gray-50 rounded-lg">
+                    Dashboard Admin
+                </a>
             @endif
-        @else
-            <a href="{{ route('login') }}" class="block py-3 hover:bg-gray-50 rounded-lg">Order</a>
-        @endauth
-        
+            @endauth
+
         <a href="{{ route('contact.index') }}" class="block py-3 hover:bg-gray-50 rounded-lg">Contact Us</a>
         
         <div class="pt-2">

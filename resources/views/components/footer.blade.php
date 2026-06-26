@@ -27,8 +27,7 @@
             <div>
                 <h3 class="font-bold text-slate-900 uppercase tracking-widest text-[11px] mb-6">Hubungi Kami</h3>
                 <ul class="space-y-4 text-slate-600 text-sm font-medium">
-                    <li>Jl. ABC No. 7</li>
-                    <li>Jakarta, Indonesia</li>
+                    <li>Jl. Pesanggrahan No.33 10 5 RT.010/RW.005 Meruya Utara Jakbar</li>
                     <li class="text-sky-600 font-bold">cs@internusa.com</li>
                 </ul>
             </div>
