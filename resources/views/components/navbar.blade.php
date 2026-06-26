@@ -4,15 +4,20 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20 lg:h-24">
             
-            <div class="flex items-center space-x-3 shrink-0">
-                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-sky-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <span class="text-white font-bold text-lg lg:text-xl">IN</span>
+        <div class="flex items-center space-x-3 shrink-0">
+            <a href="{{ route('home') }}" class="group transition-all duration-300 hover:scale-105">
+                <div class="w-10 h-10 lg:w-12 lg:h-12 rounded-xl overflow-hidden shadow-sm border border-slate-100 bg-white p-1">
+                    <img src="{{ asset('images/logointernusa.jpeg') }}" 
+                        alt="Logo Internusa" 
+                        class="w-full h-full object-contain">
                 </div>
-                <div class="leading-none">
-                    <span class="block text-slate-900 font-bold text-lg lg:text-xl tracking-widest uppercase">INTERNUSA</span>
-                    <span class="block text-sky-600 text-[9px] lg:text-[10px] font-semibold tracking-widest uppercase mt-0.5">Jelajahi Dunia Dengan Aman & Nyaman.</span>
-                </div>
+            </a>
+            
+            <div class="leading-none">
+                <span class="block text-slate-900 font-bold text-lg lg:text-xl tracking-widest uppercase">INTERNUSA</span>
+                <span class="block text-sky-600 text-[9px] lg:text-[10px] font-semibold tracking-widest uppercase mt-0.5">Jelajahi Dunia Dengan Aman & Nyaman.</span>
             </div>
+        </div>
 
             <div class="hidden lg:flex items-center gap-8 text-[11px] font-bold tracking-widest uppercase text-slate-800">
                 <a href="{{ route('home') }}" class="hover:text-sky-600 transition duration-300">Home</a>

@@ -3,11 +3,19 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
             
             {{-- Brand Section --}}
-            <div class="col-span-1 md:col-span-2">
-                <a href="{{ route('home') }}" class="text-2xl font-black text-slate-950 tracking-tighter">
-                    INTER<span class="text-sky-600">NUSA</span>
+            <div class="col-span-1 md:col-span-2 space-y-4">
+                <a href="{{ route('home') }}" class="flex items-center space-x-3 group transition-all duration-300">
+                    <div class="w-12 h-12 rounded-xl overflow-hidden shadow-sm border border-slate-200 bg-white p-1">
+                        <img src="{{ asset('images/logointernusa.jpeg') }}" 
+                            alt="Logo Internusa" 
+                            class="w-full h-full object-contain">
+                    </div>
+                    <span class="text-2xl font-black text-slate-950 tracking-tighter">
+                        INTER<span class="text-sky-600">NUSA</span>
+                    </span>
                 </a>
-                <p class="mt-4 text-slate-500 text-sm max-w-sm leading-relaxed font-medium">
+                
+                <p class="text-slate-500 text-sm max-w-sm leading-relaxed font-medium">
                     Jelajahi keajaiban dunia bersama kami. Kami berkomitmen memberikan pengalaman wisata yang tak terlupakan dengan layanan terbaik.
                 </p>
             </div>
