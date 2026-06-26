@@ -1,119 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | {{ config('app.name') }}</title>
+<x-guest-layout>
+    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body class="min-h-screen bg-gradient-to-br from-sky-100 via-white to-sky-50">
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
 
-<div class="min-h-screen flex items-center justify-center px-5 py-10">
-
-    <div class="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-slate-100 p-8">
-
-        {{-- Logo --}}
-        <div class="text-center mb-8">
-
-            <div class="mx-auto w-20 h-20 rounded-2xl bg-sky-600 flex items-center justify-center shadow-lg">
-                <span class="text-white text-3xl font-bold">
-                    IN
-                </span>
-            </div>
-
-            <h1 class="mt-5 text-3xl font-bold text-slate-800">
-                WONDERFULL INTERNUSA
-            </h1>
-
-            <p class="mt-2 text-slate-500">
-                Login ke akun Wonderfull Internusa
-            </p>
-
+        <div>
+            <x-input-label for="email" :value="__('Email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
-        <form method="POST" action="{{ route('login') }}" class="space-y-5">
-            @csrf
-
-            {{-- Email --}}
-            <div>
-
-                <label class="block mb-2 text-sm font-semibold text-slate-700">
-                    Email
-                </label>
-
-                <input
-                    type="email"
-                    name="email"
-                    value="{{ old('email') }}"
-                    required
-                    autofocus
-                    autocomplete="username"
-                    class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
-
-                <x-input-error :messages="$errors->get('email')" class="mt-2"/>
-
+        <div class="mt-4">
+            <x-input-label for="password" :value="__('Password')" />
+            
+            <div class="relative mt-1">
+                <x-text-input id="password" class="block w-full pr-10"
+                                type="password"
+                                name="password"
+                                required autocomplete="current-password" />
+                
+                <button type="button" onclick="togglePassword()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-gray-700">
+                    <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                </button>
             </div>
-
-            {{-- Password --}}
-            <div>
-
-                <label class="block mb-2 text-sm font-semibold text-slate-700">
-                    Password
-                </label>
-
-                <input
-                    type="password"
-                    name="password"
-                    required
-                    autocomplete="current-password"
-                    class="w-full rounded-xl border border-slate-300 px-4 py-3 focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
-
-                <x-input-error :messages="$errors->get('password')" class="mt-2"/>
-
-            </div>
-
-            <div class="flex items-center justify-between">
-
-                <label class="flex items-center gap-2 text-sm text-slate-600">
-
-                    <input
-                        type="checkbox"
-                        name="remember"
-                        class="rounded border-slate-300 text-sky-600">
-
-                    Remember Me
-
-                </label>
-
-            </div>
-
-            <button
-                type="submit"
-                class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 rounded-xl transition">
-
-                Login
-
-            </button>
-
-        </form>
-
-        <div class="mt-8 text-center">
-
-            <a href="{{ route('home') }}"
-               class="text-sky-600 hover:underline text-sm font-medium">
-
-                ← Kembali ke Beranda
-
-            </a>
-
+            
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
-    </div>
+        <div class="block mt-4">
+            <label for="remember_me" class="inline-flex items-center">
+                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
+                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+            </label>
+        </div>
 
-</div>
+        <div class="flex items-center justify-end mt-6">
+            <x-primary-button class="w-full justify-center">
+                {{ __('Log in') }}
+            </x-primary-button>
+        </div>
+    </form>
 
-</body>
-</html>
+    <script>
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+        }
+    </script>
+</x-guest-layout>
